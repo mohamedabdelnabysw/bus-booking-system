@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  ticket:
+    build:
+      args:
+        user: docker
+        uid: 1002
+      context: .
+      dockerfile: DockerFile
+    image: ticket
+    container_name: ticket-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - ticket
+
+  ticket-db:
+    image: mysql
+    container_name: ticket-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: tickets
+      MYSQL_ROOT_PASSWORD: root-password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqldata:/var/lib/postgresql/data
+    networks:
+      - ticket
+
+  ticket-nginx:
+    image: nginx:alpine
+    container_name: ticket-nginx
+    restart: unless-stopped
+    ports:
+      - 8007:80
+    volumes:
+      - ./:/var/www
+      - ./Docker-Dev/nginx:/etc/nginx/conf.d/
+    networks:
+      - ticket
+
+networks:
+  ticket:
+    name: ticket
+    driver: bridge
+
+volumes:
+  mysqldata:
