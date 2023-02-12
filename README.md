@@ -40,3 +40,9 @@ After you have installed Docker on your machine follow these steps to get the pr
 ## API Endpoints
 
 All API endpoints are prefixed with `/api`
+
+## How to use
+
+login with any user (email and password) http://localhost:8007/api/login it will return user object and [token]
+
+You will use this Token with all other endpoints as [Bearer] [token]
