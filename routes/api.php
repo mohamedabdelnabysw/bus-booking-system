@@ -17,6 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::post('book', [ReservationController::class, 'store']);
 Route::get('search', [ReservationController::class, 'availableSeats']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

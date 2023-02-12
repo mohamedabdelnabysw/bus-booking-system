@@ -15,6 +15,10 @@ class ReservationController extends Controller
     {
         $this->availableSeatsService = $availableSeatsService;
     }
+    public function store(ReserveRequest $request)
+    {
+        return response()->json(Ticket::create($request->validated()));
+    }
 
     public function  AvailableSeats(SearchRequest $request)
     {
