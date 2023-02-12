@@ -46,3 +46,23 @@ All API endpoints are prefixed with `/api`
 login with any user (email and password) http://localhost:8007/api/login it will return user object and [token]
 
 You will use this Token with all other endpoints as [Bearer] [token]
+
+http://localhost:8007/api/search is used to get all available seats from station to another 
+by sending { from_id , to_id } . 
+it will return 
+    ```
+    [
+        {
+            trip:{
+                id, 
+                bus:{
+                    id, 
+                    availableSeats:{ id, name}
+                }
+            }
+        }, ...
+    ]
+    ```
+
+http://localhost:8007/api/search is used to book an available seat from station to another in specific trip
+by sending { "seat_id", "trip_id", "bus_id", "user_id", "from_stop_number", "to_stop_number"} .
