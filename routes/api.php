@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('book', [ReservationController::class, 'store']);
-Route::get('search', [ReservationController::class, 'availableSeats']);
-
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('book', [ReservationController::class, 'store']);
+    Route::get('search', [ReservationController::class, 'availableSeats']);
+});
+Route::post('login', [LoginController::class, 'login']);
