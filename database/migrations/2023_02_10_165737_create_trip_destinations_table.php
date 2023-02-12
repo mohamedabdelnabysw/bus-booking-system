@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('buses', function (Blueprint $table) {
+        Schema::create('trip_destinations', function (Blueprint $table) {
             $table->id();
-            $table->integer('number')->unique();
-            $table->integer('seats_count');
+            $table->unsignedBigInteger('trip_id');
+            $table->foreign('trip_id')->references('id')->on('trips');
+            $table->unsignedBigInteger('station_id');
+            $table->foreign('station_id')->references('id')->on('stations');
+            $table->integer("stop_number");
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buses');
+        Schema::dropIfExists('trip_destinations');
     }
 };
